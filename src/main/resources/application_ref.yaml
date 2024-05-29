@@ -1,0 +1,42 @@
+server:
+  port: 8080
+  shutdown: graceful
+
+spring:
+  application:
+    name: ref
+  kafka:
+    bootstrap-servers:
+      - localhost:9092
+      - localhost:9093
+      - localhost:9094
+    streams:
+      application-id: ref
+      properties:
+        processing:
+          guarantee: exactly_once_v2
+    consumer:
+      properties:
+        security:
+          protocol: SASL_SSL
+        sasl:
+          mechanism: SCRAM-SHA-512
+          jaas:
+            config: org.apache.kafka.common.security.scram.ScramLoginModule required username='abc' password='abc!1234';
+    producer:
+      properties:
+        security:
+          protocol: SASL_SSL
+        sasl:
+          mechanism: SCRAM-SHA-512
+          jaas:
+            config: org.apache.kafka.common.security.scram.ScramLoginModule required username='abc' password='abc!1234';
+
+
+management:
+  endpoints:
+    prometheus:
+      enabled: true
+    web:
+      exposure:
+        include: "prometheus,health,info,metrics"
