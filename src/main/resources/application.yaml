@@ -1,13 +1,11 @@
-logging:
-  level:
-    root: info
-  config: classpath:log/logback.xml
+server:
+  port: 8080
+  shutdown: graceful
 
 spring:
   application:
     name: java-spring-streams
   kafka:
-    application-server: ${KAFKA_APPLICATION_SERVER:localhost:8080}
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092,localhost:9093,localhost:9094}
     streams:
       application-id: java-spring-streams
